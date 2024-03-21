@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const apiHelper = (method, url, data, header) => {
     return axios({
@@ -10,8 +11,14 @@ const apiHelper = (method, url, data, header) => {
         url,
         data
     })
-        .then(response => response.data)
-        .catch(error => error)
+        .then(response => {
+            toast.success(response.data.message)
+            return response
+        })
+        .catch(error => {
+            toast.error("Something went wrong!")
+            return error
+        })
 }
 
 export default apiHelper
