@@ -45,12 +45,12 @@ function CoverLayout({ color, header, title, description, image, top, children }
         container
         justifyContent="center"
         sx={{
-          minHeight: "75vh",
+          minHeight: "100vh",
           margin: 0,
         }}
       >
         <Grid item xs={11} sm={8} md={5} xl={3}>
-          <SoftBox mt={top}>
+          <SoftBox mt={10}>
             <SoftBox pt={3} px={3}>
               {!header ? (
                 <>

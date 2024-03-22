@@ -70,12 +70,12 @@ function BasicLayout({
       >
         <Grid container spacing={3} justifyContent="center" sx={{ textAlign: "center" }}>
           <Grid item xs={10} lg={4}>
-            <SoftBox mt={6} mb={1}>
+            <SoftBox mt={1} mb={1}>
               <SoftTypography variant="h1" color="white" fontWeight="bold">
                 {title}
               </SoftTypography>
             </SoftBox>
-            <SoftBox mb={2}>
+            <SoftBox mb={5}>
               <SoftTypography variant="body2" color="white" fontWeight="regular">
                 {description}
               </SoftTypography>
@@ -85,7 +85,7 @@ function BasicLayout({
       </SoftBox>
       <SoftBox 
       // mt={{ xs: -26, lg: -24 }} 
-      mt={{ xs: -26, lg: -30 }} 
+      mt={{ xs: -26, lg: -35 }} 
       px={1} width="calc(100% - 2rem)" mx="auto">
         <Grid container spacing={1} justifyContent="center">
           <Grid item xs={11} sm={9} md={5} lg={4} xl={3}>
