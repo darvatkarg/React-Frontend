@@ -41,8 +41,21 @@ import OrderOverview from "layouts/dashboard/components/OrderOverview";
 // Data
 import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
+import { useEffect, useState } from "react";
+import { findAllUsers } from "helpers/apiCallHelper";
 
 function Dashboard() {
+  const [users, setUsers] = useState([]);
+
+  const fetchUsers = async () => {
+    const res = await findAllUsers();
+    setUsers(res.data.data);
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
   const { size } = typography;
   const { chart, items } = reportsBarChartData;
 
@@ -52,15 +65,15 @@ function Dashboard() {
       <SoftBox py={3}>
         <SoftBox mb={3}>
           <Grid container spacing={3}>
-            <Grid item xs={12} sm={6} xl={3}>
+            <Grid item xl={3}>
               <MiniStatisticsCard
-                title={{ text: "today's money" }}
-                count="$53,000"
-                percentage={{ color: "success", text: "+55%" }}
-                icon={{ color: "info", component: "paid" }}
+                title={{ text: "Total Users" }}
+                count={users ? users.length : 0}
+                // percentage={{ color: "success", text: "+55%" }}
+                icon={{ color: "info", component: "person" }}
               />
             </Grid>
-            <Grid item xs={12} sm={6} xl={3}>
+            {/* <Grid item xs={12} sm={6} xl={3}>
               <MiniStatisticsCard
                 title={{ text: "today's users" }}
                 count="2,300"
@@ -86,7 +99,7 @@ function Dashboard() {
                   component: "shopping_cart",
                 }}
               />
-            </Grid>
+            </Grid> */}
           </Grid>
         </SoftBox>
         <SoftBox mb={3}>
@@ -118,12 +131,26 @@ function Dashboard() {
                 title="Sales Overview"
                 description={
                   <SoftBox display="flex" alignItems="center">
-                    <SoftBox fontSize={size.lg} color="success" mb={0.3} mr={0.5} lineHeight={0}>
+                    <SoftBox
+                      fontSize={size.lg}
+                      color="success"
+                      mb={0.3}
+                      mr={0.5}
+                      lineHeight={0}
+                    >
                       <Icon className="font-bold">arrow_upward</Icon>
                     </SoftBox>
-                    <SoftTypography variant="button" color="text" fontWeight="medium">
+                    <SoftTypography
+                      variant="button"
+                      color="text"
+                      fontWeight="medium"
+                    >
                       4% more{" "}
-                      <SoftTypography variant="button" color="text" fontWeight="regular">
+                      <SoftTypography
+                        variant="button"
+                        color="text"
+                        fontWeight="regular"
+                      >
                         in 2021
                       </SoftTypography>
                     </SoftTypography>
@@ -135,16 +162,16 @@ function Dashboard() {
             </Grid>
           </Grid>
         </SoftBox>
-        <Grid container spacing={3}>
+        {/* <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={8}>
             <Projects />
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <OrderOverview />
           </Grid>
-        </Grid>
+        </Grid> */}
       </SoftBox>
-      <Footer />
+      {/* <Footer /> */}
     </DashboardLayout>
   );
 }

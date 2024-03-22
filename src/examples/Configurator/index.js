@@ -45,9 +45,17 @@ import {
 
 function Configurator() {
   const [controller, dispatch] = useSoftUIController();
-  const { openConfigurator, transparentSidenav, fixedNavbar, sidenavColor } = controller;
+  const { openConfigurator, transparentSidenav, fixedNavbar, sidenavColor } =
+    controller;
   const [disabled, setDisabled] = useState(false);
-  const sidenavColors = ["primary", "dark", "info", "success", "warning", "error"];
+  const sidenavColors = [
+    "primary",
+    "dark",
+    "info",
+    "success",
+    "warning",
+    "error",
+  ];
 
   // Use the useEffect hook to change the button state for the sidenav type based on window size.
   useEffect(() => {
@@ -102,7 +110,10 @@ function Configurator() {
         </SoftBox>
 
         <Icon
-          sx={({ typography: { size, fontWeightBold }, palette: { dark } }) => ({
+          sx={({
+            typography: { size, fontWeightBold },
+            palette: { dark },
+          }) => ({
             fontSize: `${size.md} !important`,
             fontWeight: `${fontWeightBold} !important`,
             stroke: dark.main,
@@ -126,7 +137,11 @@ function Configurator() {
             {sidenavColors.map((color) => (
               <IconButton
                 key={color}
-                sx={({ borders: { borderWidth }, palette: { white, dark }, transitions }) => ({
+                sx={({
+                  borders: { borderWidth },
+                  palette: { white, dark },
+                  transitions,
+                }) => ({
                   width: "24px",
                   height: "24px",
                   padding: 0,
@@ -136,8 +151,14 @@ function Configurator() {
                     easing: transitions.easing.sharp,
                     duration: transitions.duration.shorter,
                   }),
-                  backgroundImage: ({ functions: { linearGradient }, palette: { gradients } }) =>
-                    linearGradient(gradients[color].main, gradients[color].state),
+                  backgroundImage: ({
+                    functions: { linearGradient },
+                    palette: { gradients },
+                  }) =>
+                    linearGradient(
+                      gradients[color].main,
+                      gradients[color].state
+                    ),
 
                   "&:not(:last-child)": {
                     mr: 1,
@@ -199,7 +220,7 @@ function Configurator() {
         <Divider />
 
         <SoftBox mt={3} mb={2}>
-          <SoftBox mb={2}>
+          {/* <SoftBox mb={2}>
             <SoftButton
               component={Link}
               href="https://www.creative-tim.com/product/soft-ui-dashboard-react"
@@ -222,9 +243,9 @@ function Configurator() {
             fullWidth
           >
             view documentation
-          </SoftButton>
+          </SoftButton> */}
         </SoftBox>
-        <SoftBox display="flex" justifyContent="center">
+        {/* <SoftBox display="flex" justifyContent="center">
           <a
             className="github-button"
             href="https://github.com/creativetimofficial/soft-ui-dashboard-react"
@@ -265,7 +286,7 @@ function Configurator() {
               &nbsp; Share
             </SoftButton>
           </SoftBox>
-        </SoftBox>
+        </SoftBox> */}
       </SoftBox>
     </ConfiguratorRoot>
   );

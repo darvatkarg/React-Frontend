@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // react-router-dom components
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 // @mui material components
 import Card from "@mui/material/Card";
 // Soft UI Dashboard React components
@@ -12,25 +12,37 @@ import SoftButton from "components/SoftButton";
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 // Images
 import curved6 from "assets/images/curved-images/curved14.jpg";
-import { register } from "helpers/apiCallHelper";
 import { toast } from "react-toastify";
+import { updateUser } from "helpers/apiCallHelper";
+import { findUserByID } from "helpers/apiCallHelper";
 
-function SignUp() {
+function UpdateUser() {
+  const { id } = useParams();
   const navigate = useNavigate();
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
+  useEffect(() => {
+    findUser();
+  }, []);
+
+  const findUser = async () => {
+    const res = await findUserByID(id);
+    console.log(res.data);
+    setFirstName(res.data.data.first_name);
+    setLastName(res.data.data.last_name);
+    setEmail(res.data.data.email);
+  };
   async function handleSubmit(e) {
     e.preventDefault();
     const data = {
       first_name: firstName,
       last_name: lastName,
       email,
-      password,
     };
-    const response = await register(data);
+    const response = await updateUser(id, data);
     console.log(response);
     if (response.status === 200) {
       toast.success(response.data.message);
@@ -41,13 +53,12 @@ function SignUp() {
     setFirstName("");
     setLastName("");
     setEmail("");
-    setPassword("");
   }
 
   return (
     <BasicLayout
       title="Welcome!"
-      description="Register here to get started."
+      description="Update your form."
       image={curved6}
     >
       <Card>
@@ -76,15 +87,7 @@ function SignUp() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 value={email}
-              />
-            </SoftBox>
-            <SoftBox mb={2}>
-              <SoftInput
-                type="password"
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                value={password}
+                disabled
               />
             </SoftBox>
             <SoftBox mt={4} mb={1}>
@@ -94,7 +97,7 @@ function SignUp() {
                 fullWidth
                 type="submit"
               >
-                sign up
+                Update
               </SoftButton>
             </SoftBox>
             <SoftBox mt={3} textAlign="center">
@@ -103,16 +106,16 @@ function SignUp() {
                 color="text"
                 fontWeight="regular"
               >
-                Already have an account?&nbsp;
+                Don't want to update?&nbsp;
                 <SoftTypography
                   component={Link}
-                  to="/authentication/sign-in"
+                  to="/tables"
                   variant="button"
                   color="dark"
                   fontWeight="bold"
                   textGradient
                 >
-                  Sign in
+                  Go to Dashboard
                 </SoftTypography>
               </SoftTypography>
             </SoftBox>
@@ -123,4 +126,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default UpdateUser;
