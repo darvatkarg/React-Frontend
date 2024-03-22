@@ -19,6 +19,7 @@ import { findAllUsers } from "helpers/apiCallHelper";
 import { Icon } from "@mui/material";
 import { deleteUser } from "helpers/apiCallHelper";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Tables() {
   const [users, setUsers] = useState([]);
@@ -32,6 +33,11 @@ function Tables() {
   const handleDeleteUser = async (id) => {
     try {
       const deleteData = await deleteUser(id);
+      if (deleteData.status === 200) {
+        toast.success(deleteData.data.message);
+      } else {
+        toast.error("Something went wrong");
+      }
       fetchDetails();
       console.log(deleteData);
     } catch (error) {
@@ -51,6 +57,11 @@ function Tables() {
   async function fetchDetails() {
     const res = await findAllUsers();
     console.log("res", res.data);
+    if (res.status === 200) {
+      toast.success(res.data.message);
+    } else {
+      toast.error("No users found");
+    }
     setUsers(res.data.data);
   }
 

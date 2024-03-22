@@ -31,6 +31,11 @@ function UpdateUser() {
   const findUser = async () => {
     const res = await findUserByID(id);
     console.log(res.data);
+    if (res.status === 200) {
+      toast.success(res.data.message);
+    } else {
+      toast.error("Unable to fetch user");
+    }
     setFirstName(res.data.data.first_name);
     setLastName(res.data.data.last_name);
     setEmail(res.data.data.email);
@@ -46,7 +51,6 @@ function UpdateUser() {
     console.log(response);
     if (response.status === 200) {
       toast.success(response.data.message);
-      navigate("/authenticate/login");
     } else {
       toast.error("Something went wrong");
     }
