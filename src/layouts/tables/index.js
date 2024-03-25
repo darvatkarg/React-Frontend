@@ -87,7 +87,8 @@ function Tables() {
             variant="caption"
             color="text"
             fontWeight="medium"
-            onClick={() => navigate(`/authentication/update/${user.id}`)}
+            // onClick={() => navigate(`/authentication/update/${user.id}`)}
+            onClick={() => navigate(`/authentication/update`)}
           >
             <Icon>edit</Icon>
           </SoftTypography>

@@ -50,7 +50,8 @@ const routes = [
     noCollapse: true,
   },
   {
-    route: "/authentication/update/:id",
+    // route: "/authentication/update/:id",
+    route: "/authentication/update",
     component: <UpdateUser />,
   },
 ];

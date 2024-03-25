@@ -14,7 +14,7 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 import curved6 from "assets/images/curved-images/curved14.jpg";
 import { toast } from "react-toastify";
 import { updateUser } from "helpers/apiCallHelper";
-import { findUserByID } from "helpers/apiCallHelper";
+import { getUser } from "helpers/apiCallHelper";
 
 function UpdateUser() {
   const { id } = useParams();
@@ -28,13 +28,17 @@ function UpdateUser() {
     findUser();
   }, []);
 
+  const token = localStorage.getItem("token");
   const findUser = async () => {
-    const res = await findUserByID(id);
+    const res = await getUser({
+      Authorization: `Bearer ${token}`,
+    });
     console.log(res.data);
     if (res.status === 200) {
       toast.success(res.data.message);
     } else {
       toast.error("Unable to fetch user");
+      navigate("/authentication/sign-in");
     }
     setFirstName(res.data.data.first_name);
     setLastName(res.data.data.last_name);

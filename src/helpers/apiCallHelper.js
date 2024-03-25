@@ -16,8 +16,12 @@ export async function findAllUsers() {
   return await apiHelper("GET", "/findall");
 }
 
-export async function findUserByID(id) {
-  return await apiHelper("GET", `/find/${id}`);
+// export async function findUserByID(id) {
+//   return await apiHelper("GET", `/find/${id}`);
+// }
+
+export async function getUser(header) {
+  return await apiHelper("GET", `/find`, null, header);
 }
 
 export async function updateUser(id, data) {
