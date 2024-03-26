@@ -29,6 +29,7 @@ function SignIn() {
     console.log(response.data);
     if (response.status === 200) {
       toast.success(response.data.message);
+      localStorage.setItem("token", response.data.token)
       navigate("/dashboard");
     } else {
       toast.error("Something went wrong");

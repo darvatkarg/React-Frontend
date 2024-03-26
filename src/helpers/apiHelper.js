@@ -3,7 +3,8 @@ import axios from "axios";
 const apiHelper = (method, url, data, header) => {
   return axios({
     method,
-    baseURL: "https://laravel-backend.syphor.in/api",
+    baseURL: "http://localhost:8000/api",
+    // baseURL: "https://laravel-backend.syphor.in/api",
     headers: header
       ? header
       : {
