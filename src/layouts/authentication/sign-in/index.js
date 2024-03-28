@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // react-router-dom components
 import { Link, useNavigate } from "react-router-dom";
 // Soft UI Dashboard React components
@@ -13,11 +13,22 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 import curved9 from "assets/images/curved-images/curved-6.jpg";
 import { login } from "helpers/apiCallHelper";
 import { toast } from "react-toastify";
+// import Cookies from 'js-cookie';
+import axios from "axios";
 
 function SignIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    // Get CSRF token on component mount
+    axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
+      console.log('CSRF token set:', response.data);
+    }).catch(error => {
+      console.error('Error setting CSRF token:', error);
+    });
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -29,6 +40,7 @@ function SignIn() {
     console.log(response.data);
     if (response.status === 200) {
       toast.success(response.data.message);
+      // Cookies.set('token', response.data.token);
       localStorage.setItem("token", response.data.token)
       navigate("/dashboard");
     } else {

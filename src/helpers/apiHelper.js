@@ -5,13 +5,10 @@ const apiHelper = (method, url, data, header) => {
     method,
     baseURL: "http://localhost:8000/api",
     // baseURL: "https://laravel-backend.syphor.in/api",
-    headers: header
-      ? header
-      : {
-          "Content-Type": "application/json",
-        },
+    headers: { ...header, "Content-Type": "application/json", "Accept": "application/json" },
     url,
     data,
+    withCredentials: true
   })
     .then((response) => {
       return response;

@@ -4,8 +4,8 @@ export async function register(data) {
   return await apiHelper("POST", "/register", data);
 }
 
-export async function login(data) {
-  return await apiHelper("POST", "/login", data);
+export async function login(data, headers) {
+  return await apiHelper("POST", "/login", data, headers);
 }
 
 export async function logOut(header) {
