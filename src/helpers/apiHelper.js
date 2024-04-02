@@ -4,7 +4,7 @@ const apiHelper = (method, url, data, header) => {
   return axios({
     method,
     baseURL: "http://localhost:8000/api",
-    // baseURL: "https://laravel-backend.syphor.in/api",
+    // baseURL: "https://laravel-backend.spikedace.com/api",
     headers: header
       ? header
       : {
